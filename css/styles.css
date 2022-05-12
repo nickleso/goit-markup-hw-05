@@ -17,6 +17,9 @@
   --herohover-bcg-color: #188ce8;
 
   --outline: 1px solid tomato;
+
+  /* cubic-bizier */
+  --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body {
@@ -101,11 +104,11 @@ img {
 
   letter-spacing: 0.02em;
   text-decoration: none;
+
+  transition: color 250ms var(--timing-function);
 }
 
-.site-nav .link:hover {
-  color: var(--accent-color);
-}
+.site-nav .link:hover,
 .site-nav .link:focus {
   color: var(--accent-color);
 }
@@ -128,11 +131,25 @@ img {
 
   letter-spacing: 0.02em;
   text-decoration: none;
+
+  transition: color 250ms var(--timing-function);
+}
+
+.contact-list .contact:hover,
+.contact-list .contact:focus {
+  color: var(--accent-color);
 }
 
 .contact-icon {
   fill: currentColor;
   margin-right: 10px;
+
+  transition: fill 250ms var(--timing-function);
+}
+
+.contact-icon:hover,
+.contact-icon:focus {
+  fill: var(--accent-color);
 }
 
 .link.active-page {
@@ -142,27 +159,13 @@ img {
 .link.active-page::after {
   position: absolute;
   content: '';
+  bottom: -1px;
   display: block;
-  margin-top: 29px;
   width: 100%;
   height: 4px;
 
   background-color: var(--accent-color);
   border-radius: 2px;
-}
-
-.contact-icon:hover,
-.contact-icon:focus {
-  fill: var(--accent-color);
-}
-
-.contact-list .contact:hover,
-.address-list .cont-address:hover {
-  color: var(--accent-color);
-}
-.contact-list .contact:focus,
-.address-list .cont-address:focus {
-  color: var(--accent-color);
 }
 
 .link.active-page {
@@ -227,15 +230,13 @@ img {
 
   letter-spacing: 0.06em;
   cursor: pointer;
+
+  transition: background-color 250ms var(--timing-function);
 }
 
-.hero-button:hover {
-  background-color: var(--herohover-bcg-color);
-  color: var(--address-color);
-}
+.hero-button:hover,
 .hero-button:focus {
   background-color: var(--herohover-bcg-color);
-  color: var(--address-color);
 }
 
 /* modal window "Заказать услугу" */
@@ -246,6 +247,9 @@ img {
   width: 100%;
   height: 100%;
 
+  scale: 0.8;
+  opacity: 1;
+  transition: opacity 1000ms var(--timing-function), scale 1000ms var(--timing-function);
   background-color: rgba(0, 0, 0, 0.2);
 }
 
@@ -255,15 +259,21 @@ img {
   pointer-events: none;
 }
 
+.backdrop.is-hidden .modal {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
 .modal {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
 
   min-width: 528px;
   min-height: 581px;
   padding: 40px;
+
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 250ms var(--timing-function);
 
   background-color: var(--primary-bcg-color);
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
@@ -289,6 +299,8 @@ img {
   background-color: var(--primary-bcg-color);
 
   cursor: pointer;
+
+  transition: background-color 250ms var(--timing-function), fill 250ms var(--timing-function);
 }
 
 .close:hover,
@@ -490,8 +502,9 @@ img {
   border-radius: 50%;
 
   background-color: var (--primary-bcg-color);
-
   fill: var(--networksvg-color);
+
+  transition: background-color 250ms var(--timing-function), fill 250ms var(--timing-function);
 }
 
 .social-network:hover,
@@ -518,8 +531,9 @@ img {
   border-radius: 4px;
 
   background-color: var(--primary-bcg-color);
-
   fill: var(--networksvg-color);
+
+  transition: border 250ms var(--timing-function), fill 250ms var(--timing-function);
 }
 
 .client:hover,
@@ -559,15 +573,12 @@ img {
   line-height: 1.63;
 
   cursor: pointer;
+
+  transition: color 250ms var(--timing-function), background-color 250ms var(--timing-function),
+    box-shadow 250ms var(--timing-function);
 }
 
-.portfolio-buttons .btn:hover {
-  color: var(--address-color);
-  background-color: var(--accent-color);
-
-  box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.08),
-    0px 2px 2px rgba(0, 0, 0, 0.12);
-}
+.portfolio-buttons .btn:hover,
 .portfolio-buttons .btn:focus {
   color: var(--address-color);
   background-color: var(--accent-color);
@@ -588,7 +599,7 @@ img {
 }
 
 .portfolio-list .element {
-  position: relative;
+  /* position: relative; */
   max-width: 370px;
   margin-right: 30px;
   margin-bottom: 30px;
@@ -601,6 +612,8 @@ img {
   text-decoration: none;
 
   color: currentColor;
+
+  transition: box-shadow 250ms var(--timing-function);
 }
 
 .portfolio-link:hover,
@@ -617,24 +630,27 @@ img {
 }
 
 /* hovered thumb with text */
-.hovered-thumb {
+.portfolio-thumb {
+  position: relative;
+  overflow: hidden;
+}
+
+.portfolio-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 294px;
+  height: 100%;
 
-  display: none;
+  padding: 63px 24px;
 
-  align-items: center;
-
-  padding-left: 24px;
-  padding-right: 24px;
+  transform: translateY(100%);
+  transition: transform 250ms var(--timing-function);
 
   background-color: rgba(33, 150, 243, 0.9);
 }
 
-.hovered-text {
+.overlay-text {
   margin: 0;
 
   font-size: 18px;
@@ -643,9 +659,9 @@ img {
   color: var(--address-color);
 }
 
-.portfolio-link:hover .hovered-thumb,
-.portfolio-link:focus .hovered-thumb {
-  display: flex;
+.portfolio-link:hover .portfolio-overlay,
+.portfolio-link:focus .portfolio-overlay {
+  transform: translateY(0);
 }
 
 /* description text of items */
@@ -712,6 +728,12 @@ img {
   line-height: 1.71;
 
   text-decoration: none;
+  transition: color 250ms var(--timing-function);
+}
+
+.address-list .cont-address:hover,
+.address-list .cont-address:focus {
+  color: var(--accent-color);
 }
 
 .address-list .element:not(:last-child) {
@@ -759,6 +781,8 @@ img {
 
   background-color: rgba(255, 255, 255, 0.1);
   fill: var(--address-color);
+
+  transition: background-color 250ms var(--timing-function), fill 250ms var(--timing-function);
 }
 
 .footernetwork-link:hover,
